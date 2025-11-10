@@ -29,11 +29,12 @@ def mask_account_card(account_info: str) -> str:
 def get_date(change_data: str) -> str:
     """ Функция меняющая дату"""
     user_data = " "
+
 # Отделяем первые 10 символов
     for i in change_data[:10].split('-'):
         if i == "-":
-            user_data += "."     # Разделяем точкой
-        else:
-            user_data += i     # Прибавляем значение(цифры)
-            return user_data
+            user_data += "."
+# Дата в измененном формате
+    user_data = f"{change_data[8:10]}.{change_data[5:7]}.{change_data[0:4]}"
+    return user_data
 
