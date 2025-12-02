@@ -28,7 +28,7 @@ def test_get_mask_type_error(account_str, expected_num):
     ("7000234567891234", "**1234")])
 def test_get_mask_account(account_number, result_account):
     if len(account_number) < 6:
-        raise ValueError("Номер счета должен содержать минимум 6 цифр")
+        raise ValueError("Маскировка номера минимум 6 цифр")
 
 
 @pytest.mark.parametrize("account_error, result_error", [
