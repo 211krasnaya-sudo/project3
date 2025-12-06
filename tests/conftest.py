@@ -6,6 +6,14 @@ def card_number():
     return card_number
 
 @pytest.fixture
+def number_card():
+    return number_card == ValueError
+
+@pytest.fixture
+def value_number():
+    return value_number
+
+@pytest.fixture
 def mask_num():
     return mask_num == ValueError
 
@@ -20,6 +28,26 @@ def account_number():
 @pytest.fixture
 def account_error():
     return account_error == ValueError
+
+@pytest.fixture
+def mask_error():
+    return mask_error == ValueError
+
+@pytest.fixture
+def line_error():
+    return line_error == ValueError
+
+@pytest.fixture
+def zero_error():
+    return zero_error == ValueError
+
+@pytest.fixture
+def zero_account():
+    return zero_account == ValueError
+
+@pytest.fixture
+def account_type():
+    return account_type == TypeError
 
 @pytest.fixture
 def card_account():
@@ -49,7 +77,32 @@ def filter_numbers():
             {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
 
 @pytest.fixture()
+def filter_card():
+    return [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
+            {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
+            {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
+            {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
+
+@pytest.fixture()
 def sort_date():
+    return [
+        [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
+         {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
+         {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
+         {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
+        ]
+
+@pytest.fixture()
+def sort_error():
+    return [
+        [{'date': '2018-09-12T21:27:25.241689', 'id': 594226727, 'state': 'CANCELED'},
+         {'date': '2018-06-30T02:08:58.425572', 'id': 939719570, 'state': 'EXECUTED'},
+         {'date': '2018-09-12T21:27:25.241689', 'id': 594226727, 'state': 'CANCELED'},
+         {'date': '2018-06-30T02:08:58.425572', 'id': 939719570, 'state': 'EXECUTED'}]
+        ]
+
+@pytest.fixture()
+def mask_error():
     return [
         [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
          {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
