@@ -132,7 +132,8 @@ def test_get_mask_account_error(account_error: str, result_error: str) -> None:
     ("dkjhiithbbjdigjxlvijvn dj njxch njxchvn cjn jmcn", "**4212"),
     ("1111010101010101010101000011010101010101", "**4212"),
     ("1010101", "**4212"),
-    ("011010111010110101011110110", "**4212")])
+    ("011010111010110101011110110", "**4212"),
+    ("101000101010101", "**1242")])
 def test_get_mask_account_pos(account_pos: str, result_pos: str) -> None:
     if len(str(account_pos)) != 16:
         with pytest.raises(ValueError):
