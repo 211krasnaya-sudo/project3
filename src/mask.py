@@ -20,8 +20,8 @@ def get_mask_account(account_number: int) -> str:
     # Преобразуем число в строку
     account_str = str(account_number)
     # Проверяем минимальную длину номера счета
-    if len(account_str) < 6:
-        raise ValueError("Номер счета должен содержать минимум 6 цифр")
+    if len(account_str) < 20:
+        raise ValueError("Номер счета должен содержать минимум 20 цифр")
     # Формируем маску
     masked = "**" + account_str[-4:]
     return masked
