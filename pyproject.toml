@@ -48,3 +48,9 @@ line-length = 119
 
 [tool.isort]
 line_length = 119
+
+
+[tool.coverage.run]
+omit = ["*/tests/*",
+"*/tests",
+]
