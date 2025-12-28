@@ -23,10 +23,10 @@ def test_transaction_descriptions(list_dict) -> None:
     assert next(x) == 'Перевод с карты'
 
 
-@pytest.mark.parametrize("card_start, expected_cards", [
+@pytest.mark.parametrize("card_start, stop, expected_cards", [
     (1, 3, ["7000 0000 0000 0001", "7000 0000 0000 0002", "7000 0000 0000 0003"]),
     (4, 7, ["7000 0000 0000 0004", "7000 0000 0000 0005", "7000 0000 0000 0006", "7000 0000 0000 0007"])
 ])
-def test_card_number_generator(card_start, expected_cards) -> None:
-    result = list(card_number_generator(card_start))
+def test_card_number_generator(card_start, stop, expected_cards) -> None:
+    result = list(card_number_generator(card_start, stop))
     assert next(result) == expected_cards
