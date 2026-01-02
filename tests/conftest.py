@@ -72,8 +72,40 @@ def filter_card() -> list[dict[str, object]]:
 @pytest.fixture
 def list_dict() -> list[list[dict[str, object]]]:
     list_dict = [
-        [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
+        [{'id': 4142882, 'description': 'Перевод', 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
          {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
-         {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
+         {'id': 59422672, 'description': 'Перевод с карты', 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
          {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]]
     return list_dict
+
+
+@pytest.fixture
+def filter_gen() -> list[dict[str, object]]:
+    filter_gen = [
+        {
+            "id": 939719570,
+            "state": "EXECUTED",
+            "date": "2018-06-30T02:08:58.425572",
+            "operationAmount": {
+                "amount": "9824.07",
+                "currency": {
+                    "name": "USD",
+                    "code": "USD"},
+            },
+            "description": "Перевод организации",
+            "from": "Счет 75106830613657916952",
+            "to": "Счет 11776614605963066702"
+        }]
+    return filter_gen
+
+
+@pytest.fixture
+def card_start() -> str:
+    card_start = "7000 2345 6789 1234 "
+    return card_start
+
+
+@pytest.fixture
+def card_numbers() -> str:
+    card_numbers = "7000000000000002"
+    return card_numbers
