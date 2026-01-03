@@ -40,4 +40,4 @@ def test_mask_account_card_version1(card_account_num: str, expected_num: str) ->
     ("2024-03-11T02:26:18.671407", "11.03.2024"),
     ("2025-02-11T02:26:18.671407", "11.02.2025")])
 def test_get_date(change_data: str, expected_date: str) -> None:
-    assert get_date(str(change_data)) == expected_date
+    assert get_date(change_data) == expected_date
