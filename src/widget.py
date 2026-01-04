@@ -14,13 +14,13 @@ def mask_account_card(account_info: str) -> str:
     if not account_number.isdigit():
         raise ValueError("Номер счета должен содержать только цифры")
 
-     # Длина строки
+# Длина строки
     if len(account_number) < 16:
         raise ValueError("Номер счета должен содержать минимум 16 цифр")
     # Формируем маску
-    masked = account_number[:4] + " " + account_number[4:6] + "**" + " " + "****" + " " + account_number[-4:]   # последние 4 цифры
+    masked = account_number[:4] + " " + account_number[4:6] + "**" + " " + "****" + " " + account_number[-4:]
 
-    return " ".join(parts[:-1]) +  " " + masked
+    return " ".join(parts[:-1]) + " " + masked
 
 
 def get_date(change_data: str) -> str:

@@ -18,7 +18,7 @@ def test_filter_by_currency(transactions: list[dict], currency: str) -> None:
     assert result
 
 
-def test_transaction_descriptions(transactions_currency):
+def test_transaction_descriptions(transactions_currency: list[dict]) -> None:
     trans_descrip = transaction_descriptions(transactions_currency)
     assert list(trans_descrip) == ["Перевод", "Перевод с карты"]
 
@@ -36,7 +36,7 @@ def test_card_number_generator_v2(card_start: int, stop: int, expected_cards: in
     "0000 0000 0000 0001", "0000 0000 0000 0002", "0000 0000 0000 0003",
     "0000 0000 0525 2525", "0000 0000 0525 2526", "0000 0000 0525 2527"
 ])
-def test_card_number_generator_v1(expected) -> None:
+def test_card_number_generator_v1(expected: int) -> None:
     x = card_number_generator(1, 3)
     y = card_number_generator(5252525, 5252527)
     assert next(x) == "0000 0000 0000 0001"
