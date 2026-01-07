@@ -1,4 +1,4 @@
-
+from functools import wraps
 
 
 
@@ -6,7 +6,7 @@ def log(filename=None):
     """Декоратор для логирования"""
 
     def decorator(func):
-        @functools.wraps(func)
+        @wraps(func)
         def wrapper(*args, **kwargs):
             try:
                 result = func(*args, **kwargs)
@@ -28,3 +28,8 @@ def log(filename=None):
         return wrapper
 
     return decorator
+
+
+@log(filename="mylog.txt")
+def my_function(x, y):
+    return (3, 4)
