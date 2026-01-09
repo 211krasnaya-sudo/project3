@@ -30,6 +30,6 @@ def log(filename=None):
     return decorator
 
 
-@log(filename="mylog.txt")
+@log()
 def my_function(x, y):
-    return (3, 4)
+    return x + y

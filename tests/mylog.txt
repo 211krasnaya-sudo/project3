@@ -1,0 +1,8 @@
+my_function ok
+Результат: 7
+my_function ok
+Результат: 25
+my_function ok
+Результат: 7
+my_function ok
+Результат: 25

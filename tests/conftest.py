@@ -108,3 +108,9 @@ def card_start() -> str:
 def card_numbers() -> str:
     card_numbers = "7000000000000002"
     return card_numbers
+
+
+@pytest.fixture
+def x() -> int:
+    x = "7"
+    return x
