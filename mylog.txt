@@ -1,0 +1,16 @@
+my_function ok
+Результат: 7
+my_function ok
+Результат: 25
+my_function error: TypeError. Inputs: (100, 'a'), {}my_function error: TypeError. Inputs: (10, 'd'), {}my_function ok
+Результат: 101
+my_function ok
+Результат: 30
+my_function ok
+Результат: 7
+my_function ok
+Результат: 25
+my_function error: TypeError. Inputs: (100, 'a'), {}my_function error: TypeError. Inputs: (10, 'd'), {}my_function ok
+Результат: 101
+my_function ok
+Результат: 30

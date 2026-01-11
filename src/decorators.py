@@ -1,13 +1,13 @@
 from functools import wraps
+from typing import Any, Callable
 
 
-
-def log(filename=None):
+def log(filename: str | None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """Декоратор для логирования"""
 
-    def decorator(func):
+    def decorator(func: Any) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             try:
                 result = func(*args, **kwargs)
                 log_message = f"{func.__name__} ok\nРезультат: {result}\n"
@@ -30,6 +30,6 @@ def log(filename=None):
     return decorator
 
 
-@log()
-def my_function(x, y):
+@log(filename='mylog.txt')
+def my_function(x: int, y: int) -> int:
     return x + y

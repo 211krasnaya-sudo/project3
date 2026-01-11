@@ -112,5 +112,5 @@ def card_numbers() -> str:
 
 @pytest.fixture
 def x() -> int:
-    x = "7"
+    x = 7
     return x
