@@ -17,7 +17,8 @@ def test_log(capsys: pytest.CaptureFixture, x: int, y: int, expected: int) -> No
     result = my_function(x, y)
     captured = capsys.readouterr()
     assert result == expected
-    assert 'my_function ok' in captured.out.splitlines()[0]
+    lines = captured.out.splitlines()
+    assert ("Function: my_function ok" in line for line in lines)
 
 
 @pytest.mark.parametrize(
