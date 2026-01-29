@@ -1,5 +1,6 @@
 import requests
 
+from src.utils import API_KEY
 
 
 def convert_to_rub(amount: float, currency: str) -> float:
@@ -15,4 +16,4 @@ def convert_to_rub(amount: float, currency: str) -> float:
         return float(data["result"])
     else:
         print(f"Ошибка при запросе к API: {response.status_code} - {response.text}")
-        return 0.0  # Или можно поднять исключение, если не удалось сконвертировать
+        return 0.0

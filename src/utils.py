@@ -8,6 +8,7 @@ current_dir = Path(__file__).parent.parent.resolve()
 operations_file_json = current_dir / 'data' / 'operations.json'
 API_KEY = os.getenv('API_KEY')
 
+
 def transactions_total(transaction: dict) -> float:
     """
     Принимает на вход транзакцию и возвращает сумму транзакции в рублях.
