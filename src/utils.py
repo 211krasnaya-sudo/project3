@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+from src.external_api import convert_to_rub
 
 
 load_dotenv()
@@ -21,4 +22,4 @@ def transactions_total(transaction: dict) -> float:
     if currency == "RUB":
         return amount
     else:
-        return currency
+        return convert_to_rub(amount, currency)

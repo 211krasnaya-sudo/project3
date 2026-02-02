@@ -1,21 +1,21 @@
-import pytest
+import unittest
 from unittest.mock import patch
 from src.utils import transactions_total
 
 
-# Тестовая функция
-@pytest.mark.parametrize("transaction, expected", [
-    ({"operationAmount": {"amount": "1000", "currency": {"code": "RUB"}}}, 1000.0),
-    ({"operationAmount": {"amount": "1000", "currency": {"code": "USD"}}}, 75.0),  # Примерный курс
-])
-@patch('src.utils.get_exchange_rate')  # Подмена функции получения курса
-def test_transactions_total(mock_get_exchange_rate, transaction, expected):
-    # Настраиваем фейковый курс
-    mock_get_exchange_rate.return_value = 75.0
+class TestTransactions(unittest.TestCase):
 
-    # Вызываем тестируемую функцию
-    result = transactions_total(transaction)
+    @patch('src.external_api.convert_to_rub')
+    def test_transaction_total_v1(self, mock_convert_to_rub):
+        mock_convert_to_rub.return_value = 75.0
+        example_transaction = {"operationAmount": {"amount": "1000", "currency": {"code": "USD"}}}
+        result = transactions_total(example_transaction)
+        assert result == "USD"
+        mock_convert_to_rub.assert_called()
 
-    # Проверяем, что результат соответствует ожиданиям
-    assert result == expected
 
+    @patch('src.external_api.convert_to_rub')
+    def test_transactions_total_v2(self, mock_convert_to_rub):
+        transaction = {"operationAmount": {"amount": "100", "currency": {"code": "RUB"}}}
+        result = transactions_total(transaction)
+        self.assertEqual(result, 100.0)
