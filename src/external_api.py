@@ -1,19 +1,28 @@
+import os
 import requests
+from dotenv import load_dotenv
 
-from src.utils import API_KEY
+load_dotenv()
 
+API_TOKEN = os.getenv('API_TOKEN')
+BASE_URL = "https://api.apilayer.com/exchangerates_data/"
 
-def convert_to_rub(amount: float, currency: str) -> float:
-    """
-    Конвертирует сумму из указанной валюты в рубли, используя API.
-    """
+def convert_to_rub(amount, currency):
+    """Конвертирует сумму в рубли с использованием внешнего API."""
+    if currency not in ['RUB', 'USD', 'EUR']:
+        raise ValueError('Unsupported currency')
+
+    if currency == 'RUB':
+        return float(amount)
+
     url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={currency}&amount={amount}"
-    headers = {"apikey": API_KEY}
-    response = requests.get(url, headers=headers)
 
-    if response.status_code == 200:
-        data = response.json()
-        return float(data["result"])
-    else:
-        print(f"Ошибка при запросе к API: {response.status_code} - {response.text}")
-        return 0.0
+    headers = {
+        "apikey": API_TOKEN
+    }
+
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()  # Отслеживаем ошибки при запросе
+
+    data = response.json()
+    return float(data['result'])
