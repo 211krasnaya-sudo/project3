@@ -310,3 +310,117 @@ Function: my_function ok
 Результат: 101
 Function: my_function ok
 Результат: 30
+Function: my_function ok
+Результат: 5
+Function: my_function ok
+Результат: 7
+Function: my_function ok
+Результат: 25
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: 101
+Function: my_function ok
+Результат: 30
+Function: my_function ok
+Результат: 5
+Function: my_function ok
+Результат: 7
+Function: my_function ok
+Результат: 25
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: 101
+Function: my_function ok
+Результат: 30
+Function: my_function ok
+Результат: 5
+Function: my_function ok
+Результат: 7
+Function: my_function ok
+Результат: 25
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: 101
+Function: my_function ok
+Результат: 30
+Function: my_function ok
+Результат: 5
+Function: my_function ok
+Результат: 5
+Function: my_function ok
+Результат: 7
+Function: my_function ok
+Результат: 25
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: 101
+Function: my_function ok
+Результат: 30
+Function: my_function ok
+Результат: 5
+Function: my_function ok
+Результат: 7
+Function: my_function ok
+Результат: 25
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: 101
+Function: my_function ok
+Результат: 30
+Function: my_function ok
+Результат: 5
+Function: my_function ok
+Результат: 7
+Function: my_function ok
+Результат: 25
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: 101
+Function: my_function ok
+Результат: 30
+Function: my_function ok
+Результат: 5
+Function: my_function ok
+Результат: 7
+Function: my_function ok
+Результат: 25
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: 101
+Function: my_function ok
+Результат: 30
+Function: my_function ok
+Результат: 5
+Function: my_function ok
+Результат: 7
+Function: my_function ok
+Результат: 25
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: None
+Function: my_function ok
+Результат: 101
+Function: my_function ok
+Результат: 30
