@@ -1,9 +1,9 @@
 import pytest
 import unittest
-from unittest.mock import patch, mock_open, MagicMock
+from unittest.mock import patch, mock_open
 from src.utils import load_transactions
-from src import external_api
-from src.external_api import convert_to_rub
+from src import external_api1
+from src.external_api1 import convert_to_rub
 
 class TestUtils(unittest.TestCase):
     @patch('builtins.open', new_callable=mock_open, read_data='[{"amount": 100, "currency": "USD"}]')
@@ -30,8 +30,7 @@ class TestUtils(unittest.TestCase):
 class TestExternalAPI(unittest.TestCase):
     @patch('external_api.requests.get')
     def test_convert_to_rub(self, mock_get):
-        from src.external_api import convert_to_rub
-        mock_response = MagicMoc()
+        from src.external_api1 import convert_to_rub
         mock_get.return_value.json.return_value = {'result': 75.0}
         mock_get.return_value.raise_for_status = lambda: None
 
@@ -39,8 +38,7 @@ class TestExternalAPI(unittest.TestCase):
         self.assertEqual(amount_in_rub, 75.0)
 
     def test_convert_invalid_currency(self):
-        from src.external_api import convert_to_rub
-        mock_response = MagicMoc()
+        from src.external_api1 import convert_to_rub
         with self.assertRaises(ValueError):
             convert_to_rub(100, 'JPY')
 

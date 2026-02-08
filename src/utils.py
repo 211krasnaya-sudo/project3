@@ -1,7 +1,9 @@
 import json
 import os
+from typing import List, Dict
 
-def load_transactions(file_path):
+
+def load_transactions(file_path: str) -> List[Dict]:
     """Загружает транзакции из JSON-файла."""
     if not os.path.exists(file_path):
         return []
