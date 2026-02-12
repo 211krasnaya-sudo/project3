@@ -3,7 +3,7 @@ import os
 from typing import Dict, List
 
 
-def transactions_total(file_path: str) -> list[dict]:
+def transactions_tot(file_path: str) -> list[dict]:
     """Загружает транзакции из JSON-файла."""
     try:
         #Проверяем существование файла

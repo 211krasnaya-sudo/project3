@@ -7,24 +7,24 @@ sys.path.insert(0, 'path_to_widget/src')
 
 class TestUtils(unittest.TestCase):
     @patch('builtins.open', new_callable=mock_open, read_data='[{"amount": 100, "currency": "USD"}]')
-    def test_transactions_total(self, mock_file) -> None:
-        from src.utils import transactions_total
-        result = transactions_total('dummy_path')
+    def test_transactions_tot(self, mock_file) -> None:
+        from src.utils import transactions_tot
+        result = transactions_tot('dummy_path')
         print(result)
         self.assertEqual(len(result), 0)
         self.assertEqual(result, [])
         self.assertEqual(result, [])
 
     @patch('builtins.open', new_callable=mock_open, read_data='not a json')
-    def test_transactions_total_invalid_json(self, mock_file) -> None:
-        from src.utils import transactions_total
-        result = transactions_total('dummy_path')
+    def test_transactions_tot_invalid_json(self, mock_file) -> None:
+        from src.utils import transactions_tot
+        result = transactions_tot('dummy_path')
         self.assertEqual(result, [])
 
     @patch('os.path.exists', return_value=False)
-    def test_transactions_total_file_not_found(self, mock_exists) -> None:
-        from src.utils import transactions_total
-        result = transactions_total('dummy_path')
+    def test_transactions_tot_file_not_found(self, mock_exists) -> None:
+        from src.utils import transactions_tot
+        result = transactions_tot('dummy_path')
         self.assertEqual(result, [])
 
 
