@@ -1,6 +1,6 @@
 import json
 import os
-from typing import Dict, List
+
 from dotenv import load_dotenv
 from typing import Optional
 import requests
@@ -29,7 +29,7 @@ def transactions_tot(file_path: str) -> list[dict]:
     except json.JSONDecodeError:
         raise json.JSONDecodeError("Файл JSON не корректен")
     except ValueError:
-        raise ValueError("Не удалось преобразить сумму в число")
+        raise ValueError("Не удалось преобразить число")
     except Exception as e:
         raise Exception(f"Это общее исключение{e}")
 
@@ -37,7 +37,7 @@ def transactions_tot(file_path: str) -> list[dict]:
 def convert_to_rub(amount: str, currency: str) -> Optional[float]:
     """Конвертирует сумму в рубли с использованием внешнего API."""
     if currency not in ['RUB', 'USD', 'EUR']:
-        raise ValueError('Unsupported currency')
+        raise ValueError('Неподдерживаемая валюта')
 
     if currency == 'RUB':
         return float(amount)
