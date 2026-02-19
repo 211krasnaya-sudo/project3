@@ -1,64 +1,24 @@
 import unittest
 from unittest.mock import patch
-from src.external_api1 import get_transaction_amount
+from typing import Any
 
-class TestGetTransactionAmount(unittest.TestCase):
 
-    @patch('src.utils.convert_to_rub', return_value=75.0)  # Замокируем convert_to_rub
-    def test_get_transaction_amount_usd(self, mock_convert_to_rub):
-        transaction_data = {
-            'id': 123,
-            'amount': 1000.50,
-            'currency': 'USD'
-        }
+class TestExternalAPI(unittest.TestCase):
+    @patch('src.external_api1.requests.get')
+    def test_convert_to_rub_v1(self, mock_get: Any) -> None:
 
-        result = get_transaction_amount(transaction_data)
+        from src.external_api1 import convert_to_rub
+        mock_get.return_value.json.return_value = {'result': 75.0}
+        mock_get.return_value.raise_for_status = lambda: None
 
-        # Проверка, что результат соответствует ожидаемому
-        self.assertEqual(result, 75.0)
+        amount_in_rub = convert_to_rub(str(100), 'USD')
+        self.assertEqual(amount_in_rub, 75.0)
 
-        # Убедитесь, что convert_to_rub был вызван с правильными аргументами
-        mock_convert_to_rub.assert_called_once_with('1000.5', 'USD')
+    def test_convert_invalid_currency(self) -> None:
+        from src.utils import convert_to_rub
+        with self.assertRaises(ValueError):
+            convert_to_rub(str(100), 'JPY')
 
-    @patch('src.utils.convert_to_rub', return_value=85.0)  # Замокируем convert_to_rub
-    def test_get_transaction_amount_eur(self, mock_convert_to_rub):
-        transaction_data = {
-            'id': 124,
-            'amount': 1000.50,
-            'currency': 'EUR'
-        }
-
-        result = get_transaction_amount(transaction_data)
-
-        # Проверка, что результат соответствует ожидаемому
-        self.assertEqual(result, 85.0)
-
-        # Убедитесь, что convert_to_rub был вызван с правильными аргументами
-        mock_convert_to_rub.assert_called_once_with('1000.5', 'EUR')
-
-    def test_get_transaction_amount_rub(self):
-        transaction_data = {
-            'id': 125,
-            'amount': 1000.50,
-            'currency': 'RUB'
-        }
-
-        result = get_transaction_amount(transaction_data)
-
-        # Проверка, что результат соответствует ожидаемому
-        self.assertEqual(result, 1000.50)
-
-    def test_get_transaction_amount_unknown_currency(self):
-        transaction_data = {
-            'id': 126,
-            'amount': 1000.50,
-            'currency': 'JPY'  # Неизвестная валюта
-        }
-
-        result = get_transaction_amount(transaction_data)
-
-        # Проверка, что результат соответствует ожидаемому
-        self.assertEqual(result, 1000.50)
 
 if __name__ == '__main__':
     unittest.main()

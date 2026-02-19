@@ -1,15 +1,6 @@
 import json
 import os
-
-from dotenv import load_dotenv
-from typing import Optional
-import requests
-
-
-load_dotenv()
-
-API_TOKEN = os.getenv('API_TOKEN')
-BASE_URL = "https://api.apilayer.com/exchangerates_data/"
+from src.external_api1 import convert_to_rub
 
 
 def transactions_tot(file_path: str) -> list[dict]:
@@ -34,23 +25,30 @@ def transactions_tot(file_path: str) -> list[dict]:
         raise Exception(f"Это общее исключение{e}")
 
 
-def convert_to_rub(amount: str, currency: str) -> Optional[float]:
-    """Конвертирует сумму в рубли с использованием внешнего API."""
-    if currency not in ['RUB', 'USD', 'EUR']:
-        raise ValueError('Неподдерживаемая валюта')
+def get_transaction_amount(transaction: dict) -> float:
+    """Функция для получения суммы транзакции в рублях."""
+    try:
+        amount = str(transaction.get('amount', 0))
+        currency = transaction.get('currency', 'RUB').upper()
 
-    if currency == 'RUB':
-        return float(amount)
+        if currency == 'RUB':
+            return float(amount)
+        elif currency in ['USD', 'EUR']:
+            return convert_to_rub(amount, currency)
+        else:
+            print("Неизвестная валюта. Возвращаем сумму в исходной валюте.")
+            return float(amount)
+
+    except (ValueError, TypeError):
+        raise ValueError("Не удалось преобразить число")
 
 
-    url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={currency}&amount={amount}"
-
-    headers = {
-        "apikey": API_TOKEN
+    # Пример использования функции
+transaction_data = {
+        'id': 123,
+        'amount': 1000.50,
+        'currency': 'USD'
     }
-
-    response = requests.get(url, headers=headers, data={})
-    response.raise_for_status()  # Отслеживаем ошибки при запросе
-
-    data = response.json()
-    return float(data.get('result'))
+if __name__ == '__main__':
+    amount_in_rubles = get_transaction_amount(transaction_data)
+    print(f"Сумма транзакции: {amount_in_rubles:.2f} руб.")
