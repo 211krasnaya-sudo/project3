@@ -1,6 +1,6 @@
 import unittest
-from unittest.mock import patch
 from typing import Any
+from unittest.mock import patch
 
 
 class TestExternalAPI(unittest.TestCase):

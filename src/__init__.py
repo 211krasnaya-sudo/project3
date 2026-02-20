@@ -1,2 +1,2 @@
-def transactions_tot():
+def transactions_tot() -> None:
     return None

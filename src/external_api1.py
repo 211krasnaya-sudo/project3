@@ -1,9 +1,7 @@
 import os
-
-from dotenv import load_dotenv
 from typing import Optional
 import requests
-
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -18,7 +16,6 @@ def convert_to_rub(amount: str, currency: str) -> Optional[float]:
 
     if currency == 'RUB':
         return float(amount)
-
 
     url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={currency}&amount={amount}"
 
