@@ -29,8 +29,8 @@ def transactions_tot(file_path: str) -> list[dict]:
 def get_transaction_amount(transaction: dict) -> Union[float, None]:
     """Функция для получения суммы транзакции в рублях."""
     try:
-        amount = str(transaction.get('amount', 0))
-        currency = transaction.get('currency', 'RUB').upper()
+        amount = transaction["operationAmount"]["amount"]
+        currency = transaction["operationAmount"]["currency"]["code"]
 
         if currency == 'RUB':
             return float(amount)
@@ -45,9 +45,19 @@ def get_transaction_amount(transaction: dict) -> Union[float, None]:
 
 
 transaction_data = {
-    'id': 123,
-    'amount': 1000.50,
-    'currency': 'USD'
+    "id": 441945886,
+    "state": "EXECUTED",
+    "date": "2019-08-26T10:50:58.294041",
+    "operationAmount": {
+        "amount": "31957.58",
+        "currency": {
+            "name": "руб.",
+            "code": "RUB"
+        }
+    },
+    "description": "Перевод организации",
+    "from": "Maestro 1596837868705199",
+    "to": "Счет 64686473678894779589"
 }
 if __name__ == '__main__':
     amount_in_rubles = get_transaction_amount(transaction_data)
