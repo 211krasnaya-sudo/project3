@@ -1,3 +1,16 @@
+import os
+from logging_config import setup_logging
+
+
+logger = setup_logging()
+
+LOG_DIR = 'logs'
+LOS_FILE = os.path.join(LOG_DIR, 'masks.log')
+
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+
+
 def get_mask_card_number(card_number: str) -> str:
     """ Маскирует номер карты, оставляя первые 6 и последние 4 цифры видимыми."""
     # Преобразуем число в строку
