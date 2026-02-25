@@ -1,5 +1,7 @@
 import os
-from logging_config import setup_logging
+import logging
+from typing import Optional
+from src.logging_config import setup_logging
 
 
 logger = setup_logging()
@@ -13,6 +15,8 @@ if not os.path.exists(LOG_DIR):
 
 def get_mask_card_number(card_number: str, masks_logger=None) -> str:
     """ Маскирует номер карты, оставляя первые 6 и последние 4 цифры видимыми."""
+    if masks_logger is None:
+        masks_logger = []
     masks_logger.info(f"Вызвана функция get_mask_card_number с card_number: {card_number}")
     # Преобразуем число в строку
     card_str = str(card_number)

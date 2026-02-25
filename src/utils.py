@@ -14,6 +14,7 @@ LOS_FILE_UTILS = os.path.join(LOG_DIR, 'utils.log')
 if not os.path.exists(LOG_DIR):
     os.makedirs(LOG_DIR)
 
+
 def transactions_tot(file_path: str, utils_loger=None) -> list[dict]:
     """Загружает транзакции из JSON-файла."""
     utils_loger.info(f"Загрузка трансакций из файла: {file_path}")
@@ -28,7 +29,8 @@ def transactions_tot(file_path: str, utils_loger=None) -> list[dict]:
                 utils_loger.info(f"Успешно загружено {len(data)} трансакций из файла {file_path}")
                 return data
             else:
-                utils_loger.warning(f"Файл {file_path} содержит данные не в формате списка. Возвращается пустой список")
+                utils_loger.warning(f"Файл {file_path}с ошибкой формата списка."
+                                    f" Возвращается пустой список")
                 return []
     except json.JSONDecodeError as e:
         utils_loger.error(f"Ошибка декодирования JSON в файле: {file_path}")
@@ -43,7 +45,8 @@ def transactions_tot(file_path: str, utils_loger=None) -> list[dict]:
 
 def get_transaction_amount(transaction: dict, utils_loger=None) -> Union[float, None]:
     """Функция для получения суммы транзакции в рублях."""
-    utils_loger.info(f"Запуск функции get_transaction_amount для получения суммы транзакции в рублях: {transaction}")
+    utils_loger.info(f"Запуск функции get_transaction_amount для получения суммы транзакции"
+                     f" в рублях: {transaction}")
     try:
         amount = transaction["operationAmount"]["amount"]
         currency = transaction["operationAmount"]["currency"]["code"]
@@ -54,7 +57,8 @@ def get_transaction_amount(transaction: dict, utils_loger=None) -> Union[float, 
         elif currency in ['USD', 'EUR']:
             return convert_to_rub(amount, currency)
         else:
-            utils_loger.warning(f"Неизвестная валюта. Возвращаем сумму в исходной валюте.")
+            utils_loger.warning(f"Неизвестная валюта."
+                                f" Возвращаем сумму в исходной валюте {transaction}.")
             print("Неизвестная валюта. Возвращаем сумму в исходной валюте.")
             return float(amount)
 
