@@ -84,9 +84,14 @@ class TestExternalAPI(unittest.TestCase):
             "to": "Счет 35383033474447895560"
         }
         result = get_transaction_amount(transaction_data)
-
+        if result is not None:
+            # Проверка, что результат соответствует ожидаемому
+            self.assertEqual(float(result), 8221.37)
+        else:
+            self.fail("Не получил сумму транзакции.")
+        # assert result is None
         # Проверка, что результат соответствует ожидаемому
-        self.assertEqual(result, 8221.37)
+        # self.assertEqual(result, 8221.37)
 
 
 if __name__ == '__main__':
