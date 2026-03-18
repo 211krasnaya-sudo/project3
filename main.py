@@ -1,44 +1,47 @@
 import json
 import csv
+from typing import List, Dict, Any
+
 import pandas as pd
-from transactions_post.py import process_bank_search, process_bank_operations
+from src.transactions_post import process_bank_search, process_bank_operations
 
 
-def load_transactions_from_json(file_path: str) -> List[Dict[str, Any]]:
+def transactions_tot(file_path: str) -> List[Dict[str, Any]]:
     with open(file_path, 'r', encoding='utf-8') as f:
         return json.load(f)
 
 
-def load_transactions_from_csv(file_path: str) -> List[Dict[str, Any]]:
+def reding_transactions_csv(file_path: str) -> List[Dict[str, Any]]:
     with open(file_path, mode='r', encoding='utf-8') as file:
         reader = csv.DictReader(file, delimiter=',')
         return [row for row in reader]
 
 
-def load_transactions_from_excel(file_path: str) -> List[Dict[str, Any]]:
+def reding_transactions_excel(file_path: str) -> List[Dict[str, Any]]:
     reader = pd.read_excel(file_path)
     return reader.to_dict(orient="records")
 
 
 def main():
+    # global transactions
     print("Привет! Добро пожаловать в программу работы с банковскими транзакциями.")
     print("Выберите необходимый пункт меню:")
     print("1. Получить информацию о транзакциях из JSON-файла")
     print("2. Получить информацию о транзакциях из CSV-файла")
     print("3. Получить информацию о транзакциях из XLSX-файла")
 
-    choice = input("Пользователь: ")
-    if choice not in {'1', '2', '3'}:
+    choice_user = input("Пользователь: ")
+    if choice_user not in {'1', '2', '3'}:
         print("Недопустимый выбор. Попробуйте снова.")
         return
 
     file_path = input("Введите путь к файлу: ")
-    if choice == '1':
-        transactions = load_transactions_from_json(file_path)
-    elif choice == '2':
-        transactions = load_transactions_from_csv(file_path)
-    elif choice == '3':
-        transactions = load_transactions_from_excel(file_path)
+    if choice_user == '1':
+        transactions = transactions_tot(file_path)
+    elif choice_user == '2':
+        transactions = reding_transactions_csv(file_path)
+    elif choice_user == '3':
+        transactions = reding_transactions_excel(file_path)
 
     if not transactions:
         print("Не найдено транзакций.")
