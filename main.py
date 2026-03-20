@@ -2,13 +2,14 @@ import json
 from typing import List, Dict, Any
 
 
-from data import operations_api, transaction_csv, transfction_excel
-from src.bank_operations import process_bank_search
+from data import operations_api, transaction_csv, transaction_excel
+from src.transactions_post import process_bank_search
 from src.transactions_csv_excel import reading_transaction_csv, reading_transaction_excel
 from src.processing import filter_by_state, sort_by_date
 from src.widget import get_date, mask_account_card
 from src.transactions_post import process_bank_search
 import pandas as pd
+
 
 def transactions_tot(full_path: str) -> List[Dict[str, Any]]:
     """ Загружает данные из JSON-файла и преобразует в унифицированный формат. """
