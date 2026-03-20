@@ -114,3 +114,8 @@ def card_numbers() -> str:
 def x() -> int:
     x = 7
     return x
+
+
+@pytest.fixture
+def mock_convert_to_rub() -> float:
+    return 75.0
