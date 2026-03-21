@@ -1,7 +1,6 @@
 import json
 from typing import List, Dict, Any
 
-
 from data import operations_api, transaction_csv, transaction_excel
 from src.transactions_post import process_bank_search
 from src.transactions_csv_excel import reading_transaction_csv, reading_transaction_excel
