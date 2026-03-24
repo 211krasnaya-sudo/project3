@@ -1,9 +1,10 @@
 import json
 from typing import List, Dict, Any
-from data import operations_api, transaction_csv, transaction_excel
-from src.transactions_post import process_bank_search
+from configuration import PATH_CSV, PATH_JSON, PATH_XLSX
+# from data import operations, transaction, transaction_excel
 from src.transactions_csv_excel import reading_transaction_csv, reading_transaction_excel
-from src.processing import filter_by_state, sort_by_date
+from src.processing import filter_by_state
+from src.processing import sort_by_date
 from src.widget import get_date, mask_account_card
 from src.transactions_post import process_bank_search
 import pandas as pd
@@ -72,32 +73,6 @@ def print_transaction(transaction: Dict[str, Any]) -> None:
         print(transfer_line)
     print(f"Сумма: {amount} {currency}\n")
 
-def reading_transaction_csv_v1(file_path: str, delimiter: str = ";") -> List[dict]:
-
-    """Функция считывает финансовые операции из CSV-файла."""
-    try:
-        reader = pd.read_csv(file_path, delimiter=delimiter)
-        return reader.to_dict(orient="records")
-    except FileNotFoundError:
-        print(f"Ошибка: Файл {file_path} не найден!")
-        return []
-    except Exception as e:
-        print(f"Ошибка при чтении CSV-файла {e}")
-        return []
-
-
-def reading_transaction_excel_v1(file_path: str) -> list[dict]:
-    """Функция считывает финансовые операции из EXCEL-файла."""
-    try:
-        reader = pd.read_excel(file_path)
-        return reader.to_dict(orient="records")
-    except FileNotFoundError:
-        print(f"Ошибка: Файл {file_path} не найден.")
-        return []
-    except Exception as e:
-        print(f"Ошибка при чтении EXCEL-файла {e}")
-        return []
-
 
 def main():
     while True:
@@ -108,30 +83,37 @@ def main():
             "2. Получить информацию о транзакциях из CSV-файла\n"
             "3. Получить информацию о транзакциях из XLSX-файла.\n"
         )
-    # Получаем выбор пользователя
-    choice_user = input("Пользователь: ").strip()
-    if choice_user not in {'1', '2', '3'}:
-        print("Недопустимый выбор. Попробуйте снова.")
-        return
-    # Определяем путь к файлу
+    # while True:
+        choice_user = input("Пользователь: ").strip()
+        if choice_user not in {'1', '2', '3'}:
+            print("Недопустимый выбор. Попробуйте снова.")
+        else:
+            break
+
+            # Определяем путь к файлу
     transactions = []
-    file_path = input("Введите путь к файлу: ")
+    choice_user = input("Введите путь к файлу: ")
     if choice_user == '1':
-        transactions = transactions_tot(file_path)
+        print("\nПрограмма: Для обработки выбран JSON-файл.\n")
+        transactions = transactions_tot(PATH_JSON)
     elif choice_user == '2':
-        transactions = reding_transactions_csv(file_path)
+        print("\nПрограмма: Для обработки выбран CSV-файл.\n")
+        transactions = reading_transaction_csv(PATH_CSV)
     elif choice_user == '3':
-        transactions = reding_transactions_excel(file_path)
+        print("\nПрограмма: Для обработки выбран XLSX-файл.\n")
+        transactions = reading_transaction_excel(PATH_XLSX)
 
     if not transactions:
         print("Не найдено транзакций.")
         return
+
     # Фильтрация по статусу
-    status_options = ["EXECUTED", "CANCELED", "PENDING"]
+    status_options = ["executed", "canceled", "pending"]
 
     while True:
         status = input(
-            "Введите статус, по которому необходимо выполнить фильтрацию (EXECUTED, CANCELED, PENDING): ").strip().lower()
+            "Введите статус, по которому необходимо выполнить фильтрацию (EXECUTED, CANCELED, "
+            "PENDING): ").strip().lower()
         if status in status_options:
             print(f"Операции отфильтрованы по статусу '{status.upper()}'")
             filtered_transactions = [t for t in transactions if t['state'].lower() == status]
