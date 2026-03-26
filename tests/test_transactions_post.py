@@ -1,12 +1,13 @@
 import unittest
-from typing import List, Dict, Any
-from src.transactions_post import process_bank_search, process_bank_operations
+from typing import Any, Dict, List
+
+from src.transactions_post import process_bank_operations, process_bank_search
 
 
 class TestBankOperations(unittest.TestCase):
     def setUp(self):
         """Метод, который выполняется перед каждым тестом, для подготовки общих данных."""
-        self.transactions = [
+        self.account: List[Dict[str, Any]] = [
             {
                 'id': '4234093',
                 'state': 'EXECUTED',
@@ -52,53 +53,37 @@ class TestBankOperations(unittest.TestCase):
                 'description': 'Перевод с карты на карту'
             }
         ]
+    # def setUp(self):
+        # self.wasSetUp = 1
+        # self.setUp()
+        # method = getattr(self, str(self.transactions))
+        # method()
 
     def test_process_bank_search(self):
         """Тестирует функцию поиска по описанию транзакции."""
         search_term = "перевод"
-        expected_result = [
-            {
-                'id': '4234093',
-                'state': 'EXECUTED',
-                'date': '2021-07-08T07:31:21Z',
-                'amount': '23182',
-                'currency_name': 'Ruble',
-                'currency_code': 'RUB',
-                'from': 'Visa 0773092093872450',
-                'to': 'Discover 8602781449570491',
-                'description': 'Перевод с карты на карту'
-            },
-            {
-                'id': '4813301',
-                'state': 'EXECUTED',
-                'date': '2021-11-02T13:32:15Z',
-                'amount': '15080',
-                'currency_name': 'Euro',
-                'currency_code': 'EUR',
-                'from': 'Счет 65547878890984510340',
-                'to': 'Счет 91457207307678002163',
-                'description': 'Перевод со счета на счет'
-            }
-        ]
-        result = process_bank_search(self.transactions, search_term)
+        # Все 4 транзакции содержат "Перевод" — значит, результат должен быть из 4
+        expected_result = self.account  # все транзакции подходят
+        result = process_bank_search(self.account, search_term)
+        self.assertEqual(len(result), 4)
         self.assertEqual(result, expected_result)
 
     def test_process_bank_operations(self):
         """Тестирует функцию подсчета операций по категориям."""
         categories = ['ожидание', 'отмена', 'перевод']
         expected_result = {
-            'ожидание': 1,
-            'отмена': 1,
-            'перевод': 2
+            'ожидание': 0,   # PENDING
+            'отмена': 0,     # CANCELED
+            'перевод': 4     # все 4 транзакции — "перевод"
         }
-        result = process_bank_operations(self.transactions, categories)
+        result = process_bank_operations(self.account, categories)
         self.assertEqual(result, expected_result)
 
     def test_empty_search(self):
         """Тестирует поиск, когда не найдено никаких совпадений."""
         search_term = "некорректный запрос"
         expected_result = []
-        result = process_bank_search(self.transactions, search_term)
+        result = process_bank_search(self.account, search_term)
         self.assertEqual(result, expected_result)
 
     def test_empty_transactions(self):

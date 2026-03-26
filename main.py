@@ -116,7 +116,10 @@ def main():
             "PENDING): ").strip().lower()
         if status in status_options:
             print(f"Операции отфильтрованы по статусу '{status.upper()}'")
-            filtered_transactions = [t for t in transactions if t['state'].lower() == status]
+            filtered_transactions = [
+                t for t in transactions
+                if isinstance(t.get('state'), str) and t['state'].lower() == status
+            ]
             break
         else:
             print(f"Статус операции '{status.upper()}' недоступен. Попробуйте снова.")
@@ -149,8 +152,7 @@ def main():
     else:
         print(f"Всего банковских операций в выборке: {len(filtered_transactions)}")
         for transaction in filtered_transactions:
-            print(
-                f"{transaction['date']} {transaction['description']}\nСчет **{transaction['from'][-4:]}\nСумма: {transaction['amount']} {transaction['currency_name'] if 'currency_name' in transaction else transaction['currency_code']}\n")
+            print_transaction(transaction)
 
 
 if __name__ == '__main__':

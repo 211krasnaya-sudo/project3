@@ -1,11 +1,12 @@
 import re
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 
 def process_bank_search(data: List[Dict[str, Any]], search: str) -> List[Dict[str, Any]]:
     """Ищет транзакции по строке поиска в описании."""
     pattern = re.compile(re.escape(search), re.IGNORECASE)  # Игнорирует регистр
     return [transaction for transaction in data if pattern.search(transaction['description'])]
+
 
 def process_bank_operations(transactions: List[Dict[str, Any]], categories: List[str]) -> Dict[str, int]:
     """Считает количество операций по категориям."""
